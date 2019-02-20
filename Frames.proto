@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+package schemas;
+
+option java_package = "org.levk.rmp2.schemas";
+option java_outer_classname = "Frames";
+
+message Handshake {
+    required uint32 stage = 1;
+    required bytes pubkey = 2;
+    required bytes signature = 3;
+    optional bytes data = 4;
+}
+
+message Data {
+    required uint64 messageId = 1;
+    required bytes sender = 2;
+    required bytes data = 3;
+}
+
+message Stream {
+    required uint64 messageLength = 1;
+    required uint32 chunkIndex = 2;
+    required uint32 chunkLength = 3;
+    required bytes data = 4;
+    optional bytes additional_data = 5;
+}
+
+message Payload {
+    required bytes data = 1;
+    optional bytes FEC = 2;
+}
+
+message Ack {
+    required uint64 messageId = 1;
+    required bytes sender = 2;
+    repeated uint64 startIndices = 3;
+}
